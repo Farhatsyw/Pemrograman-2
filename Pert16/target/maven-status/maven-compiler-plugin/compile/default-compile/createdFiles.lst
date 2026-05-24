@@ -1,0 +1,16 @@
+com\unpam\controller\LaporanNilaiController.class
+com\unpam\controller\LoginController.class
+com\unpam\controller\NilaiController.class
+com\mycompany\pert16\resources\JakartaEE8Resource.class
+com\unpam\controller\LogoutController.class
+com\unpam\model\Koneksi.class
+com\unpam\controller\MahasiswaController.class
+com\unpam\view\MainForm.class
+com\unpam\model\Mahasiswa.class
+com\unpam\view\PesanDialog.class
+com\unpam\controller\MataKuliahController.class
+com\unpam\model\Admin.class
+com\mycompany\pert16\JakartaRestConfiguration.class
+com\unpam\model\Enkripsi.class
+com\unpam\model\Nilai.class
+com\unpam\model\MataKuliah.class
