@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(title='Beranda')}"></head>
+<body>
+
+<div th:replace="~{fragments/layout :: navbar}"></div>
+
+<section class="hero">
+    <div class="container">
+        <h1><i class="fa-solid fa-hotel me-2"></i>Selamat Datang di Hotel Pamulang</h1>
+        <p>Kelola dan pesan kamar hotel dengan mudah &mdash; cepat, rapi, dan tanpa ribet. Sistem reservasi berbasis Spring Boot, Thymeleaf, dan JDBC.</p>
+        <a th:href="@{/reservasi/tambah}" class="btn btn-accent btn-lg mt-3 px-4">
+            <i class="fa-solid fa-calendar-plus me-2"></i>Buat Reservasi Sekarang
+        </a>
+    </div>
+</section>
+
+<div class="container mb-5">
+
+    <div class="row g-4 mb-5">
+        <div class="col-md-4">
+            <div class="stat-card bg-navy">
+                <i class="fa-solid fa-bed"></i>
+                <div class="stat-number mt-2" th:text="${totalKamar}">0</div>
+                <div>Total Kamar</div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="stat-card bg-green">
+                <i class="fa-solid fa-circle-check"></i>
+                <div class="stat-number mt-2" th:text="${kamarTersedia}">0</div>
+                <div>Kamar Tersedia</div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="stat-card bg-gold">
+                <i class="fa-solid fa-book-open"></i>
+                <div class="stat-number mt-2" th:text="${reservasiAktif}">0</div>
+                <div>Reservasi Aktif</div>
+            </div>
+        </div>
+    </div>
+
+    <h4 class="section-title">Kenapa Pilih Hotel Pamulang?</h4>
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card-soft p-4 h-100">
+                <i class="fa-solid fa-bolt fa-lg mb-2" style="color: var(--gold);"></i>
+                <h6 class="fw-bold">Proses Cepat</h6>
+                <p class="text-muted mb-0 small">Pesan kamar hanya dalam beberapa klik, tanpa antre.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card-soft p-4 h-100">
+                <i class="fa-solid fa-shield-halved fa-lg mb-2" style="color: var(--gold);"></i>
+                <h6 class="fw-bold">Data Aman</h6>
+                <p class="text-muted mb-0 small">Data reservasi tersimpan rapi di database MySQL.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card-soft p-4 h-100">
+                <i class="fa-solid fa-headset fa-lg mb-2" style="color: var(--gold);"></i>
+                <h6 class="fw-bold">Info Transparan</h6>
+                <p class="text-muted mb-0 small">Status kamar &amp; reservasi selalu terlihat jelas dan real-time.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{fragments/layout :: footer}"></div>
+<div th:replace="~{fragments/layout :: scripts}"></div>
+</body>
+</html>

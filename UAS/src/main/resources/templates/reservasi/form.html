@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(title='Reservasi Baru')}"></head>
+<body>
+
+<div th:replace="~{fragments/layout :: navbar}"></div>
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-7">
+            <h4 class="section-title">Buat Reservasi Baru</h4>
+
+            <div class="alert alert-danger" th:if="${error}" th:text="${error}"></div>
+
+            <div class="form-card">
+                <form th:action="@{/reservasi/simpan}" method="post">
+
+                    <div class="mb-3">
+                        <label class="form-label">Nama Tamu</label>
+                        <input type="text" name="namaTamu" class="form-control" placeholder="Masukkan nama lengkap" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Pilih Kamar</label>
+                        <select name="kamarId" class="form-select" required>
+                            <option value="" disabled selected>-- Pilih kamar tersedia --</option>
+                            <option th:each="kamar : ${daftarKamar}"
+                                    th:value="${kamar.id}"
+                                    th:text="'Kamar ' + ${kamar.nomorKamar} + ' - ' + ${kamar.tipeKamar} + ' (Rp ' + ${#numbers.formatInteger(kamar.hargaPerMalam, 0, 'POINT')} + '/malam)'">
+                            </option>
+                        </select>
+                        <div class="form-text" th:if="${#lists.size(daftarKamar) == 0}">
+                            <i class="fa-solid fa-triangle-exclamation text-danger me-1"></i>Saat ini semua kamar penuh.
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Tanggal Check-in</label>
+                            <input type="date" name="tanggalCheckIn" class="form-control" th:min="${today}" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Tanggal Check-out</label>
+                            <input type="date" name="tanggalCheckOut" class="form-control" th:min="${today}" required>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-2 mt-4">
+                        <button type="submit" class="btn btn-primary-navy">
+                            <i class="fa-solid fa-check me-1"></i>Simpan Reservasi
+                        </button>
+                        <a th:href="@{/reservasi}" class="btn btn-outline-secondary">Batal</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{fragments/layout :: footer}"></div>
+<div th:replace="~{fragments/layout :: scripts}"></div>
+</body>
+</html>

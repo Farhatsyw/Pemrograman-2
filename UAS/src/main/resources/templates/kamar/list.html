@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(title='Daftar Kamar')}"></head>
+<body>
+
+<div th:replace="~{fragments/layout :: navbar}"></div>
+
+<div class="container my-5">
+    <h4 class="section-title">Daftar Kamar</h4>
+
+    <div class="row g-4" th:if="${#lists.size(daftarKamar) > 0}">
+        <div class="col-md-4" th:each="kamar : ${daftarKamar}">
+            <div class="kamar-card h-100">
+                <div class="kamar-top d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="fw-bold fs-5">Kamar <span th:text="${kamar.nomorKamar}">101</span></div>
+                        <small th:text="${kamar.tipeKamar}">STANDARD</small>
+                    </div>
+                    <i class="fa-solid fa-door-closed fa-lg"></i>
+                </div>
+                <div class="p-4">
+                    <div class="kamar-price fs-5 mb-3">
+                        Rp <span th:text="${#numbers.formatInteger(kamar.hargaPerMalam, 0, 'POINT')}">350.000</span> / malam
+                    </div>
+                    <span th:if="${kamar.status.name() == 'TERSEDIA'}" class="badge-tersedia">
+                        <i class="fa-solid fa-circle-check me-1"></i>Tersedia
+                    </span>
+                    <span th:if="${kamar.status.name() == 'TERISI'}" class="badge-terisi">
+                        <i class="fa-solid fa-circle-xmark me-1"></i>Terisi
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="empty-state" th:if="${#lists.size(daftarKamar) == 0}">
+        <i class="fa-solid fa-bed"></i>
+        <p>Belum ada data kamar.</p>
+    </div>
+</div>
+
+<div th:replace="~{fragments/layout :: footer}"></div>
+<div th:replace="~{fragments/layout :: scripts}"></div>
+</body>
+</html>

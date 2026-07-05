@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(title='Daftar Reservasi')}"></head>
+<body>
+
+<div th:replace="~{fragments/layout :: navbar}"></div>
+
+<div class="container my-5">
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
+        <h4 class="section-title mb-0">Daftar Reservasi</h4>
+        <a th:href="@{/reservasi/tambah}" class="btn btn-primary-navy">
+            <i class="fa-solid fa-plus me-1"></i>Reservasi Baru
+        </a>
+    </div>
+
+    <div class="alert alert-success" th:if="${sukses}" th:text="${sukses}"></div>
+    <div class="alert alert-danger" th:if="${error}" th:text="${error}"></div>
+
+    <div class="table-responsive table-soft" th:if="${#lists.size(daftarReservasi) > 0}">
+        <table class="table table-hover mb-0">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nama Tamu</th>
+                    <th>Kamar</th>
+                    <th>Check-in</th>
+                    <th>Check-out</th>
+                    <th>Malam</th>
+                    <th>Total Biaya</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="r : ${daftarReservasi}">
+                    <td th:text="${r.id}">1</td>
+                    <td th:text="${r.namaTamu}">Budi</td>
+                    <td th:text="${r.kamar.nomorKamar} + ' (' + ${r.kamar.tipeKamar} + ')'">101 (STANDARD)</td>
+                    <td th:text="${#temporals.format(r.tanggalCheckIn, 'dd-MM-yyyy')}">-</td>
+                    <td th:text="${#temporals.format(r.tanggalCheckOut, 'dd-MM-yyyy')}">-</td>
+                    <td th:text="${r.jumlahMalam}">1</td>
+                    <td th:text="'Rp ' + ${#numbers.formatInteger(r.totalBiaya, 0, 'POINT')}">Rp 0</td>
+                    <td>
+                        <span th:if="${r.status.name() == 'AKTIF'}" class="badge-tersedia">Aktif</span>
+                        <span th:if="${r.status.name() == 'DIBATALKAN'}" class="badge-terisi">Dibatalkan</span>
+                        <span th:if="${r.status.name() == 'SELESAI'}" class="badge bg-secondary">Selesai</span>
+                    </td>
+                    <td>
+                        <form th:if="${r.status.name() == 'AKTIF'}" th:action="@{/reservasi/batal/{id}(id=${r.id})}" method="post"
+                              onsubmit="return confirm('Batalkan reservasi ini?');">
+                            <button type="submit" class="btn btn-sm btn-outline-danger">
+                                <i class="fa-solid fa-ban"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="empty-state" th:if="${#lists.size(daftarReservasi) == 0}">
+        <i class="fa-solid fa-book"></i>
+        <p>Belum ada reservasi. Yuk buat reservasi pertama!</p>
+        <a th:href="@{/reservasi/tambah}" class="btn btn-accent">Buat Reservasi</a>
+    </div>
+</div>
+
+<div th:replace="~{fragments/layout :: footer}"></div>
+<div th:replace="~{fragments/layout :: scripts}"></div>
+</body>
+</html>
